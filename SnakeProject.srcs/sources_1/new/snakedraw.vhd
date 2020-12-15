@@ -43,7 +43,8 @@ entity snakedraw is
         btn_up : IN STD_LOGIC;  
 		btn_down : IN STD_LOGIC;
 		btn_left : IN STD_LOGIC;
-		btn_right : IN STD_LOGIC
+		btn_right : IN STD_LOGIC;
+		btn_len : IN STD_LOGIC
 
    );
 end snakedraw;
@@ -59,7 +60,9 @@ architecture Behavioral of snakedraw is
     signal head_x, head_y : integer := 0;
     -- control signal
     signal S_rst : std_logic := '0';
-    
+    -----------------------------------------------
+    signal S_length : integer := 1;
+    -----------------------------------------------
 
     COMPONENT vga_sync IS
         PORT (
@@ -98,7 +101,8 @@ architecture Behavioral of snakedraw is
             btn_up : IN STD_LOGIC;  
 		    btn_down : IN STD_LOGIC;
 		    btn_left : IN STD_LOGIC;
-		    btn_right : IN STD_LOGIC
+		    btn_right : IN STD_LOGIC;
+		    btn_len : IN STD_LOGIC
         );
     end component;
 begin
@@ -122,7 +126,7 @@ begin
     snake_pos_and_draw : snakepos
     port map(
         reset => S_rst,
-        length_in => 1,
+        length_in => 1, ---1 to S_length----------------
         v_sync => S_vsync,
         pixel_row => S_pixel_row,
         pixel_col => S_pixel_col,
@@ -133,7 +137,9 @@ begin
         btn_up => btn_up,
         btn_down => btn_down,
         btn_left => btn_left,
-        btn_right => btn_right
+        btn_right => btn_right,
+        btn_len => btn_len
+        
     );
     
      clk_wiz_0_inst : clk_wiz_0
